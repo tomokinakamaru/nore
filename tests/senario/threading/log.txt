@@ -1,0 +1,6 @@
+INFO Calling _threading.script.bar
+DEBUG Found no cache for _threading.script.bar
+INFO Running _threading.script.bar
+INFO Calling _threading.script.foo (from _threading.script.bar)
+DEBUG Found no cache for _threading.script.foo
+INFO Running _threading.script.foo (from _threading.script.bar)

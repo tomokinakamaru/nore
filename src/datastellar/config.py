@@ -1,0 +1,45 @@
+from os.path import join
+
+
+class Config(object):
+    def __init__(self):
+        self._locate_cache = default_locate_cache
+        self._cache_path = default_cache_path
+        self._lifetime = default_lifetime
+
+    @property
+    def locate_cache(self):
+        return self._locate_cache
+
+    def cache_locator(self, f):
+        self._locate_cache = f
+        return f
+
+    @property
+    def cache_path(self):
+        return self._cache_path
+
+    @cache_path.setter
+    def cache_path(self, cache_path):
+        self._cache_path = cache_path
+
+    @property
+    def lifetime(self):
+        return self._lifetime
+
+    @lifetime.setter
+    def lifetime(self, lifetime):
+        self._lifetime = lifetime
+
+
+def default_locate_cache(name, code_hash):
+    name = name.split('.')
+    code = code_hash[0], code_hash[1], code_hash[2:]
+    return join(*name, *code)
+
+
+default_cache_path = '.cache'
+
+default_lifetime = 60 * 60 * 24 * 7
+
+config = Config()

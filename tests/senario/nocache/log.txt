@@ -1,0 +1,22 @@
+INFO Calling _nocache.script.plus2
+DEBUG Found no cache for _nocache.script.plus2
+INFO Running _nocache.script.plus2
+INFO Calling _nocache.script.plus1 (from _nocache.script.plus2)
+DEBUG Found no cache for _nocache.script.plus1
+INFO Running _nocache.script.plus1 (from _nocache.script.plus2)
+INFO Calling _nocache.script.plus2
+DEBUG Cache for _nocache.script.plus1 is valid (dependency of _nocache.script.plus2)
+DEBUG Cache for _nocache.script.plus2 is valid
+INFO Reading cache for _nocache.script.plus2
+INFO Calling _nocache.script.plus1
+DEBUG Cache for _nocache.script.plus1 is valid
+INFO Reading cache for _nocache.script.plus1
+DEBUG Found no cache for _nocache.script.plus1
+INFO Running _nocache.script.plus1
+INFO Calling _nocache.script.plus2
+DEBUG _nocache.script.plus1 is updated (dependency of _nocache.script.plus2)
+DEBUG Cache for _nocache.script.plus2 is invalid; propagated
+INFO Running _nocache.script.plus2
+INFO Calling _nocache.script.plus1 (from _nocache.script.plus2)
+DEBUG Found no cache for _nocache.script.plus1
+INFO Running _nocache.script.plus1 (from _nocache.script.plus2)

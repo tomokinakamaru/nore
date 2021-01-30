@@ -1,0 +1,6 @@
+INFO Calling _run_twice.script.plus1
+DEBUG Found no cache for _run_twice.script.plus1
+INFO Running _run_twice.script.plus1
+INFO Calling _run_twice.script.plus1
+DEBUG Cache for _run_twice.script.plus1 is valid
+INFO Reading cache for _run_twice.script.plus1

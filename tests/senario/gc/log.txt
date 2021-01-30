@@ -1,0 +1,16 @@
+INFO Calling _gc.script.do_nothing
+DEBUG Found no cache for _gc.script.do_nothing
+INFO Running _gc.script.do_nothing
+DEBUG Cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache is touched at ...
+DEBUG Cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache is touched at ...
+DEBUG Removing recently untouched cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script ... 647852697a4997b006cf7389/0/f
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script ... c0647852697a4997b006cf7389/0
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script ... 85c0647852697a4997b006cf7389
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script/do_nothing/b/8
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script/do_nothing/b
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script/do_nothing
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script
+DEBUG Removing empty directory at tests/_gc/.cache/_gc
+DEBUG Removing empty directory at tests/_gc/.cache
+

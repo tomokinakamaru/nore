@@ -1,0 +1,6 @@
+INFO Calling _generator.script.generator
+DEBUG Found no cache for _generator.script.generator
+INFO Running _generator.script.generator
+INFO Calling _generator.script.generator
+DEBUG Cache for _generator.script.generator is valid
+INFO Reading cache for _generator.script.generator
