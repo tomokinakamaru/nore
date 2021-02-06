@@ -5,6 +5,7 @@ from os.path import isdir
 from os.path import join
 from pickle import dump
 from pickle import load
+from shutil import rmtree
 from time import time
 from . import logger
 from .config import config
@@ -78,6 +79,10 @@ class Cache(object):
             self.touch()
             self.dump_deps()
             return self._func.write_cache(self.data_path, data)
+
+    def delete(self):
+        with pathlock.lock(self.path):
+            rmtree(self.path, ignore_errors=True)
 
     def validate(self, parent=None):
         if not functions.has(self.name):

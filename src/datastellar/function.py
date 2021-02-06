@@ -97,6 +97,7 @@ class Function(object):
         try:
             data = cache.write(data)
         except Exception:
+            cache.delete()
             warn(f'Failed to write cache for {self.name}')
 
         return data
