@@ -1,5 +1,4 @@
-class NoCache(Exception):
-    pass
+from .error import NoCache
 
 
 def locate_cache(*args, **kwargs):

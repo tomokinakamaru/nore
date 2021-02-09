@@ -11,6 +11,7 @@ from pickle import dumps
 from pickle import load
 from . import logger
 from .cache import Cache
+from .error import BrokenCache
 from .nocache import NoCache
 from .stack import stack
 
@@ -76,6 +77,8 @@ class Function(object):
                 return cache.read()
             except NoCache:
                 debug(f'Found no cache for {self.name}')
+            except BrokenCache:
+                debug(f'Found broken cache for {self.name}')
             except Exception:
                 warn(f'Failed to read cache for {self.name}')
 

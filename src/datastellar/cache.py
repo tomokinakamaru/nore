@@ -1,6 +1,8 @@
 import lzma
 from functools import cached_property
 from os import makedirs
+from os import remove
+from os.path import exists
 from os.path import isdir
 from os.path import join
 from pickle import dump
@@ -9,6 +11,7 @@ from shutil import rmtree
 from time import time
 from . import logger
 from .config import config
+from .error import BrokenCache
 from .functions import functions
 from .pathlock import pathlock
 
@@ -65,10 +68,17 @@ class Cache(object):
     def time_path(self):
         return join(self.path, time_file_name)
 
+    @cached_property
+    def tran_path(self):
+        return join(self.path, tran_file_name)
+
     def dep(self, cache):
         self._deps.add(cache)
 
     def read(self):
+        if exists(self.tran_path):
+            self.delete()
+            raise BrokenCache()
         with pathlock.lock(self.path):
             self.touch()
             return self._func.read_cache(self.data_path)
@@ -76,9 +86,12 @@ class Cache(object):
     def write(self, data):
         with pathlock.lock(self.path):
             makedirs(self.data_path, exist_ok=True)
+            open(self.tran_path, 'wb').close()
             self.touch()
             self.dump_deps()
-            return self._func.write_cache(self.data_path, data)
+            data = self._func.write_cache(self.data_path, data)
+            remove(self.tran_path)
+            return data
 
     def delete(self):
         with pathlock.lock(self.path):
@@ -149,3 +162,5 @@ data_dir_name = 'data'
 deps_file_name = 'deps'
 
 time_file_name = 'time'
+
+tran_file_name = 'trans'
