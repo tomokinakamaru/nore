@@ -102,6 +102,7 @@ class Function(object):
 
 
 def default_locate_cache(*args, **kwargs):
+    kwargs = {k: v for k, v in sorted(kwargs.items())}
     h = md5(dumps(deepcopy((args, kwargs)))).hexdigest()
     return join(h[0], h[1], h[2:])
 
