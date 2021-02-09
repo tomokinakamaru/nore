@@ -1,4 +1,3 @@
-INFO Calling _gc.script.do_nothing
 DEBUG Found no cache for _gc.script.do_nothing
 INFO Running _gc.script.do_nothing
 DEBUG Cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache is touched at ...
