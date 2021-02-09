@@ -68,8 +68,6 @@ class Function(object):
         return self._locate_cache
 
     def __call__(self, *args, **kwargs):
-        info(f'Calling {self.name}')
-
         cache = Cache.from_inv(self, args, kwargs)
 
         if cache.validate():
