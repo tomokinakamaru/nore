@@ -11,6 +11,7 @@ from pickle import dumps
 from pickle import load
 from . import logger
 from .cache import Cache
+from .config import config
 from .error import BrokenCache
 from .nocache import NoCache
 from .stack import stack
@@ -69,6 +70,9 @@ class Function(object):
         return self._locate_cache
 
     def __call__(self, *args, **kwargs):
+        if not config.active:
+            return self._func(*args, **kwargs)
+
         cache = Cache.from_inv(self, args, kwargs)
 
         if cache.validate():

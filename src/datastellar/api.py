@@ -11,6 +11,12 @@ class Api(object):
         functions.put(func)
         return func
 
+    def activate(self):
+        self.config.active = True
+
+    def deactivate(self):
+        self.config.active = False
+
     def nocache(self, f):
         func = self(f)
         func.cache_locator(nocache.locate_cache)

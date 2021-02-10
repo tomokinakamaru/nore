@@ -6,6 +6,15 @@ class Config(object):
         self._locate_cache = default_locate_cache
         self._cache_path = default_cache_path
         self._lifetime = default_lifetime
+        self._active = True
+
+    @property
+    def active(self):
+        return self._active
+
+    @active.setter
+    def active(self, active):
+        self._active = active
 
     @property
     def locate_cache(self):
