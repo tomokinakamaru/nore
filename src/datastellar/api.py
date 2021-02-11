@@ -12,10 +12,10 @@ class Api(object):
         return func
 
     def activate(self):
-        self.config.active = True
+        config.active = True
 
     def deactivate(self):
-        self.config.active = False
+        config.active = False
 
     def nocache(self, f):
         func = self(f)
