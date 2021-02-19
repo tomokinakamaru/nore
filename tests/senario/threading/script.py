@@ -1,12 +1,12 @@
-from datastellar import datastellar, Thread
+from nore import nore, Thread
 
 
-@datastellar
+@nore
 def foo():
     pass
 
 
-@datastellar
+@nore
 def bar():
     t = Thread(target=foo)
     t.start()

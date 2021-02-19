@@ -1,7 +1,7 @@
-from datastellar import datastellar
+from nore import nore
 
 
-@datastellar
+@nore
 def plus1(x):
     return x + 1
 

@@ -1,6 +1,6 @@
-from datastellar import datastellar
-from datastellar import functions
-from datastellar import logger
+from nore import nore
+from nore import functions
+from nore import logger
 from importlib import import_module
 from importlib import reload
 from io import StringIO
@@ -30,7 +30,7 @@ class Senario(object):
     def run(self):
         self.workspace.create()
 
-        datastellar.cache_path = self.workspace.cache_path
+        nore.cache_path = self.workspace.cache_path
         for path in sorted(self.script_files()):
             functions.functions._funcs.clear()
             self.workspace.update_script(path).main()

@@ -1,8 +1,8 @@
-from datastellar import datastellar
+from nore import nore
 from inspect import isgenerator
 
 
-@datastellar
+@nore
 def generator():
     yield 1
     yield 2

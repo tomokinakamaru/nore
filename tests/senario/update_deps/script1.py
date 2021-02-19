@@ -1,12 +1,12 @@
-from datastellar import datastellar
+from nore import nore
 
 
-@datastellar
+@nore
 def plus1(x):
     return x + 1
 
 
-@datastellar
+@nore
 def plus1_and_mult2(x):
     return plus1(x) * 2
 

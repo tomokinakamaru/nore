@@ -1,14 +1,14 @@
-from datastellar import datastellar
+from nore import nore
 
 
-@datastellar
+@nore
 def do_nothing():
     pass
 
 
 def main():
     do_nothing()
-    datastellar.gc()
-    datastellar.lifetime = 0
-    datastellar.gc()
-    assert datastellar.lifetime == 0
+    nore.gc()
+    nore.lifetime = 0
+    nore.gc()
+    assert nore.lifetime == 0

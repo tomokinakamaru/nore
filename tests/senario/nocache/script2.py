@@ -1,12 +1,12 @@
-from datastellar import datastellar
+from nore import nore
 
 
-@datastellar.nocache
+@nore.nocache
 def plus1(x):
     return 1 + x
 
 
-@datastellar
+@nore
 def plus2(x):
     return plus1(x) + 1
 
