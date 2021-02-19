@@ -1,6 +1,5 @@
 from nore import nore
 from nore import functions
-from nore import logger
 from importlib import import_module
 from importlib import reload
 from io import StringIO
@@ -41,11 +40,11 @@ class Senario(object):
         self.stream = StringIO()
         self.handler = StreamHandler(self.stream)
         self.handler.setFormatter(Formatter(log_format))
-        logger.logger.addHandler(self.handler)
-        logger.logger.setLevel(DEBUG)
+        nore.logger.addHandler(self.handler)
+        nore.logger.setLevel(DEBUG)
 
     def get_captured_log(self):
-        logger.logger.removeHandler(self.handler)
+        nore.logger.removeHandler(self.handler)
         return self.stream.getvalue().strip()
 
     def script_files(self):

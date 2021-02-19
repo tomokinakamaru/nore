@@ -3,6 +3,7 @@ from . import nocache
 from .config import Config
 from .function import Function
 from .functions import functions
+from .logger import logger
 
 
 class Nore(object):
@@ -24,6 +25,10 @@ class Nore(object):
 
     def gc(self):
         gc.run(self.config)
+
+    @property
+    def logger(self):
+        return logger
 
     @property
     def config(self):
