@@ -10,7 +10,6 @@ from pickle import load
 from shutil import rmtree
 from time import time
 from . import logger
-from .config import config
 from .error import BrokenCache
 from .functions import functions
 from .pathlock import pathlock
@@ -18,14 +17,14 @@ from .pathlock import pathlock
 
 class Cache(object):
     @classmethod
-    def from_inv(cls, func, args, kwargs):
-        return cls(func, args, kwargs, None, None, None)
+    def from_inv(cls, func, args, kwargs, config):
+        return cls(func, args, kwargs, None, None, None, config)
 
     @classmethod
-    def from_dep(cls, name, code_hash, args_path):
-        return cls(None, None, None, name, code_hash, args_path)
+    def from_dep(cls, name, code_hash, args_path, config):
+        return cls(None, None, None, name, code_hash, args_path, config)
 
-    def __init__(self, func, args, kwargs, name, code_hash, args_path):
+    def __init__(self, func, args, kwargs, name, code_hash, args_path, config):
         self._func = func
         self._args = args
         self._kwargs = kwargs
@@ -33,6 +32,7 @@ class Cache(object):
         self._code_hash = code_hash
         self._args_path = args_path
         self._deps = set()
+        self._config = config
 
     @cached_property
     def name(self):
@@ -51,8 +51,8 @@ class Cache(object):
     @cached_property
     def path(self):
         return join(
-            config.cache_path,
-            config.locate_cache(self.name, self.code_hash),
+            self._config.cache_path,
+            self._config.locate_cache(self.name, self.code_hash),
             self.args_path + cache_dir_ext
         )
 
@@ -122,7 +122,7 @@ class Cache(object):
             return False
 
         for name, code_hash, args_path in deps:
-            cache = Cache.from_dep(name, code_hash, args_path)
+            cache = Cache.from_dep(name, code_hash, args_path, self._config)
             if not cache.validate(self):
                 debug(f'Cache for {self.name} is invalid; propagated', parent)
                 return False

@@ -7,27 +7,26 @@ from shutil import rmtree
 from time import time
 from .cache import cache_dir_ext
 from .cache import time_file_name
-from .config import config
 from .logger import debug
 
 
-def run():
-    remove_unused_caches()
+def run(config):
+    remove_unused_caches(config.cache_path, config.lifetime)
     remove_empty_dirs(config.cache_path)
 
 
-def remove_unused_caches():
-    for root, dirs, _ in walk(config.cache_path):
+def remove_unused_caches(path, lifetime):
+    for root, dirs, _ in walk(path):
         for dir in dirs:
             if dir.endswith(cache_dir_ext):
-                remove_unused_cache(join(root, dir))
+                remove_unused_cache(join(root, dir), lifetime)
 
 
-def remove_unused_cache(path):
+def remove_unused_cache(path, lifetime):
     t = read_time(join(path, time_file_name))
     dt = datetime.fromtimestamp(int(t))
     debug(f'Cache at {shorten(path)} is touched at {dt}')
-    if t + config.lifetime < time():
+    if t + lifetime < time():
         debug(f'Removing recently untouched cache at {shorten(path)}')
         rmtree(path)
 

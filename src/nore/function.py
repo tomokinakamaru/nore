@@ -11,19 +11,19 @@ from pickle import dumps
 from pickle import load
 from . import logger
 from .cache import Cache
-from .config import config
 from .error import BrokenCache
 from .nocache import NoCache
 from .stack import stack
 
 
 class Function(object):
-    def __init__(self, func):
+    def __init__(self, func, config):
         self._func = func
         self._locate_cache = default_locate_cache
         self._check_cache = default_check_cache
         self._read_cache = default_read_cache
         self._write_cache = default_write_cache
+        self._config = config
 
     def cache_locator(self, f):
         self._locate_cache = f
@@ -70,10 +70,10 @@ class Function(object):
         return self._locate_cache
 
     def __call__(self, *args, **kwargs):
-        if not config.active:
+        if not self._config.active:
             return self._func(*args, **kwargs)
 
-        cache = Cache.from_inv(self, args, kwargs)
+        cache = Cache.from_inv(self, args, kwargs, self._config)
 
         if cache.validate():
             try:

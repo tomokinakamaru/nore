@@ -50,5 +50,3 @@ def default_locate_cache(name, code_hash):
 default_cache_path = '.cache'
 
 default_lifetime = 60 * 60 * 24 * 7
-
-config = Config()
