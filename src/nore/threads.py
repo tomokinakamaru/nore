@@ -14,13 +14,9 @@ class Threads(object):
     def unlock(self):
         self._lock.release()
 
-    def has_parent(self, tid):
-        with self._lock:
-            return tid in self._parents
-
     def get_parent(self, tid):
         with self._lock:
-            return self._parents[tid]
+            return self._parents.get(tid)
 
     def set_parent(self, tid):
         self._parents[tid] = get_ident()

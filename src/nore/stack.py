@@ -11,14 +11,14 @@ class Stack(object):
         while True:
             if tid in self._stacks and self._stacks[tid]:
                 return False
-            if not threads.has_parent(tid):
-                break
             tid = threads.get_parent(tid)
+            if tid is None:
+                break
         return True
 
     def peak(self):
         tid = get_ident()
-        while True:
+        while tid:
             if tid in self._stacks and self._stacks[tid]:
                 return self._stacks[tid][-1]
             tid = threads.get_parent(tid)
