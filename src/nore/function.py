@@ -100,7 +100,7 @@ class Function(object):
             stack.pop()
 
         try:
-            data = cache.write(data)
+            data = cache.write(data, args, kwargs)
         except Exception as e:
             cache.delete()
             raise e

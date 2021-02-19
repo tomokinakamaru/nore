@@ -72,6 +72,10 @@ class Cache(object):
     def tran_path(self):
         return join(self.path, tran_file_name)
 
+    @cached_property
+    def args_file_path(self):
+        return join(self.path, args_file_name)
+
     def dep(self, cache):
         self._deps.add(cache)
 
@@ -83,12 +87,13 @@ class Cache(object):
             self.touch()
             return self._func.read_cache(self.data_path)
 
-    def write(self, data):
+    def write(self, data, args, kwargs):
         with pathlock.lock(self.path):
             makedirs(self.data_path, exist_ok=True)
             open(self.tran_path, 'wb').close()
             self.touch()
             self.dump_deps()
+            self.dump_args(args, kwargs)
             data = self._func.write_cache(self.data_path, data)
             remove(self.tran_path)
             return data
@@ -148,6 +153,14 @@ class Cache(object):
             deps = {(c.name, c.code_hash, c.args_path) for c in self._deps}
             dump(deps, f)
 
+    def dump_args(self, args, kwargs):
+        with open(self.args_file_path, 'w') as f:
+            f.write('args:\n')
+            f.write(str(args))
+            f.write('\n')
+            f.write('kwargs:\n')
+            f.write(str(kwargs))
+
 
 def debug(msg, parent):
     if parent:
@@ -160,6 +173,8 @@ cache_dir_ext = '.cache'
 data_dir_name = 'data'
 
 deps_file_name = 'deps'
+
+args_file_name = 'args'
 
 time_file_name = 'time'
 
