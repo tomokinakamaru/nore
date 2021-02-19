@@ -1,2 +1,2 @@
 DEBUG Found no cache for _run_once.script.plus1
-INFO Running _run_once.script.plus1
+INFO Running _run_once.script.plus1 with args=(1,) and kwargs={}

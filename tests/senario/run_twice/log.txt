@@ -1,4 +1,4 @@
 DEBUG Found no cache for _run_twice.script.plus1
-INFO Running _run_twice.script.plus1
+INFO Running _run_twice.script.plus1 with args=(1,) and kwargs={}
 DEBUG Cache for _run_twice.script.plus1 is valid
-INFO Reading cache for _run_twice.script.plus1
+INFO Reading cache for _run_twice.script.plus1 with args=(1,) and kwargs={}

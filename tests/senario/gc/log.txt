@@ -1,5 +1,5 @@
 DEBUG Found no cache for _gc.script.do_nothing
-INFO Running _gc.script.do_nothing
+INFO Running _gc.script.do_nothing with args=() and kwargs={}
 DEBUG Cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache is touched at ...
 DEBUG Cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache is touched at ...
 DEBUG Removing recently untouched cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache

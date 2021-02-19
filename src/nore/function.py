@@ -74,19 +74,20 @@ class Function(object):
             return self._func(*args, **kwargs)
 
         cache = Cache.from_inv(self, args, kwargs, self._config)
+        log_suffix = f'with args={args} and kwargs={kwargs}'
 
         if cache.validate():
             try:
-                info(f'Reading cache for {self.name}')
+                info(f'Reading cache for {self.name} {log_suffix}')
                 return cache.read()
             except NoCache:
-                debug(f'Found no cache for {self.name}')
+                debug(f'Found no cache for {self.name} {log_suffix}')
             except BrokenCache:
-                debug(f'Found broken cache for {self.name}')
+                debug(f'Found broken cache for {self.name} {log_suffix}')
             except Exception:
-                warn(f'Failed to read cache for {self.name}')
+                warn(f'Failed to read cache for {self.name} {log_suffix}')
 
-        info(f'Running {self.name}')
+        info(f'Running {self.name} {log_suffix}')
         if not stack.empty():
             stack.peak().dep(cache)
 

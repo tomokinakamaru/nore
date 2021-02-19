@@ -1,4 +1,4 @@
 DEBUG Found no cache for _generator.script.generator
-INFO Running _generator.script.generator
+INFO Running _generator.script.generator with args=() and kwargs={}
 DEBUG Cache for _generator.script.generator is valid
-INFO Reading cache for _generator.script.generator
+INFO Reading cache for _generator.script.generator with args=() and kwargs={}
