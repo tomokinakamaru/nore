@@ -2,7 +2,7 @@
 
 ## Overview
 
-Nore is a library for
+Nore is a library that caches function calls to speed up trials-and-errors in data-mining and machine-learning projects. The following lines illustrates the features of Nore:
 
 ```python
 from nore import nore
