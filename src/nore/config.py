@@ -5,7 +5,6 @@ class Config(object):
     def __init__(self):
         self._locate_cache = default_locate_cache
         self._cache_path = default_cache_path
-        self._lifetime = default_lifetime
         self._active = True
 
     @property
@@ -32,14 +31,6 @@ class Config(object):
     def cache_path(self, cache_path):
         self._cache_path = cache_path
 
-    @property
-    def lifetime(self):
-        return self._lifetime
-
-    @lifetime.setter
-    def lifetime(self, lifetime):
-        self._lifetime = lifetime
-
 
 def default_locate_cache(name, code_hash):
     name = name.split('.')
@@ -48,5 +39,3 @@ def default_locate_cache(name, code_hash):
 
 
 default_cache_path = '.cache'
-
-default_lifetime = 60 * 60 * 24 * 7

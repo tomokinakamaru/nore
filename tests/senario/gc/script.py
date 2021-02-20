@@ -8,7 +8,5 @@ def do_nothing():
 
 def main():
     do_nothing()
-    nore.gc()
-    nore.lifetime = 0
-    nore.gc()
-    assert nore.lifetime == 0
+    nore.gc(10)
+    nore.gc(0)

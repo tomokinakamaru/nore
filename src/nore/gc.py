@@ -10,9 +10,9 @@ from .cache import time_file_name
 from .logger import debug
 
 
-def run(config):
-    remove_unused_caches(config.cache_path, config.lifetime)
-    remove_empty_dirs(config.cache_path)
+def run(path, lifetime):
+    remove_unused_caches(path, lifetime)
+    remove_empty_dirs(path)
 
 
 def remove_unused_caches(path, lifetime):

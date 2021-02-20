@@ -23,8 +23,12 @@ class Nore(object):
         func.cache_writer(nocache.write_cache)
         return func
 
-    def gc(self):
-        gc.run(self.config)
+    def gc(self, seconds=0, minutes=0, hours=0, days=0):
+        lifetime = seconds
+        lifetime += minutes * 60
+        lifetime += hours * 60 * 60
+        lifetime += days * 60 * 60 * 24
+        gc.run(self.config.cache_path, lifetime)
 
     @property
     def logger(self):
@@ -48,11 +52,3 @@ class Nore(object):
     @cache_path.setter
     def cache_path(self, cache_path):
         self._config.cache_path = cache_path
-
-    @property
-    def lifetime(self):
-        return self._config.lifetime
-
-    @lifetime.setter
-    def lifetime(self, lifetime):
-        self._config.lifetime = lifetime
