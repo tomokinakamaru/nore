@@ -41,14 +41,3 @@ class Nore(object):
     @config.setter
     def config(self, config):
         self._config = config
-
-    def cache_locator(self, f):
-        return self._config.cache_locator(f)
-
-    @property
-    def cache_path(self):
-        return self._config.cache_path
-
-    @cache_path.setter
-    def cache_path(self, cache_path):
-        self._config.cache_path = cache_path

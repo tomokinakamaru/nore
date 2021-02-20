@@ -29,7 +29,7 @@ class Senario(object):
     def run(self):
         self.workspace.create()
 
-        nore.cache_path = self.workspace.cache_path
+        nore.config.cache_path = self.workspace.cache_path
         for path in sorted(self.script_files()):
             functions.functions._funcs.clear()
             self.workspace.update_script(path).main()
