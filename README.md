@@ -29,7 +29,7 @@ z = f(1, 3) # Prints "Running f(1, 3)" since the arguments are different
 print(f'f(1, 3) = {z}')
 ```
 
-Since Nore caches function calls into files, the script prints only lines like "f(...) = ..." after the second execution. No lines like `Running f(...)` are printed after the second execution.
+Since Nore caches function calls into files, the script prints only lines like "f(...) = ..." after the second execution. No lines like "Running f(...)" are printed after the second execution.
 
 ### Code-change detection
 
