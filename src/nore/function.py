@@ -1,7 +1,6 @@
 from copy import deepcopy
 from functools import cached_property
 from hashlib import md5
-from inspect import getsource
 from inspect import isgenerator
 from lzma import open
 from os.path import isfile
@@ -47,11 +46,11 @@ class Function(object):
 
     @cached_property
     def code(self):
-        return getsource(self._func)
+        return self._func.__code__.co_code
 
     @cached_property
     def code_hash(self):
-        return md5(self.code.encode(source_encoding)).hexdigest()
+        return md5(self.code).hexdigest()
 
     @property
     def read_cache(self):
@@ -183,5 +182,3 @@ def log(func, msg):
 obj_file_name = 'obj.gzip'
 
 gen_file_name = 'gen'
-
-source_encoding = 'utf8'

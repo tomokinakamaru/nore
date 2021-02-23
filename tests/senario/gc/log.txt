@@ -3,11 +3,11 @@ INFO Running _gc.script.do_nothing with args=() and kwargs={}
 DEBUG Cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache is touched at ...
 DEBUG Cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache is touched at ...
 DEBUG Removing recently untouched cache at tests/_gc/.cache/_gc/script ... d48ed2744b2beb09eee971.cache
-DEBUG Removing empty directory at tests/_gc/.cache/_gc/script ... 51468e8ee756ac486de5277f/0/f
-DEBUG Removing empty directory at tests/_gc/.cache/_gc/script ... b351468e8ee756ac486de5277f/0
-DEBUG Removing empty directory at tests/_gc/.cache/_gc/script ... f6b351468e8ee756ac486de5277f
-DEBUG Removing empty directory at tests/_gc/.cache/_gc/script/do_nothing/d/0
-DEBUG Removing empty directory at tests/_gc/.cache/_gc/script/do_nothing/d
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script ... a8fd4cd3e68143f9f5910c7e/0/f
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script ... aca8fd4cd3e68143f9f5910c7e/0
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script ... 87aca8fd4cd3e68143f9f5910c7e
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script/do_nothing/f/2
+DEBUG Removing empty directory at tests/_gc/.cache/_gc/script/do_nothing/f
 DEBUG Removing empty directory at tests/_gc/.cache/_gc/script/do_nothing
 DEBUG Removing empty directory at tests/_gc/.cache/_gc/script
 DEBUG Removing empty directory at tests/_gc/.cache/_gc

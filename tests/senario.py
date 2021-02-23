@@ -77,6 +77,7 @@ class Workspace(object):
 
     def reload_script_module(self):
         if self.script_module:
+            rmtree(join(self.path, '__pycache__'))
             return reload(self.script_module)
         return import_module(f'{self.name}.{script_name}')
 
