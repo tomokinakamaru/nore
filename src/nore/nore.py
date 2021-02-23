@@ -1,3 +1,6 @@
+from typing import Any
+from typing import Callable
+from typing import TypeVar
 from . import gc
 from . import nocache
 from .config import Config
@@ -6,11 +9,14 @@ from .functions import functions
 from .logger import logger
 
 
+Func = TypeVar('Func', bound=Callable[..., Any])
+
+
 class Nore(object):
     def __init__(self):
         self._config = Config()
 
-    def __call__(self, f):
+    def __call__(self, f: Func) -> Func:
         func = Function(f, self._config)
         functions.put(func)
         return func
