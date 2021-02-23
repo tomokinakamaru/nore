@@ -14,5 +14,12 @@ jobs:
             - v1-dependencies-{{ checksum "setup.py" }}
             - v1-dependencies-
 
-      - run:
-          command: make test
+      - run: curl -sfL https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter && chmod +x cc-test-reporter
+
+      - run: ./cc-test-reporter before-build
+
+      - run: make test
+
+      - run: ./cc-test-reporter format-coverage
+
+      - run: ./cc-test-reporter upload-coverage
