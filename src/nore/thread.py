@@ -1,8 +1,8 @@
-import threading
+from threading import Thread as Thread_
 from .threads import threads
 
 
-class Thread(threading.Thread):
+class Thread(Thread_):
     def start(self):
         threads.lock()
         try:
@@ -10,6 +10,6 @@ class Thread(threading.Thread):
         except Exception as e:
             raise e
         else:
-            threads.set_parent(self.ident)
+            threads.set_starter(self.ident)
         finally:
             threads.unlock()

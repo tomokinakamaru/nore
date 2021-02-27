@@ -1,4 +1,0 @@
-DEBUG Found no cache for _change_code.script.plus1
-INFO Running _change_code.script.plus1 with args=(1,) and kwargs={}
-DEBUG Found no cache for _change_code.script.plus1
-INFO Running _change_code.script.plus1 with args=(1,) and kwargs={}

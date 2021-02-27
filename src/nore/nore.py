@@ -1,49 +1,43 @@
 from typing import Any
 from typing import Callable
 from typing import TypeVar
-from . import gc
-from . import nocache
-from .config import Config
+from .error import NoCache
 from .function import Function
 from .functions import functions
-from .logger import logger
 
 
 Func = TypeVar('Func', bound=Callable[..., Any])
 
 
-class Nore(object):
-    def __init__(self):
-        self._config = Config()
+def cache(f: Func) -> Func:
+    func = Function(f)
+    functions.put(func)
+    return func
 
-    def __call__(self, f: Func) -> Func:
-        func = Function(f, self._config)
-        functions.put(func)
-        return func
 
-    def nocache(self, f):
-        func = self(f)
-        func.cache_locator(nocache.locate_cache)
-        func.cache_checker(nocache.check_cache)
-        func.cache_reader(nocache.read_cache)
-        func.cache_writer(nocache.write_cache)
-        return func
+def nocache(f: Func) -> Func:
+    func = cache(f)
+    func.cache_locator(nocache_locate_cache)
+    func.cache_checker(nocache_check_cache)
+    func.cache_reader(nocache_read_cache)
+    func.cache_writer(nocache_write_cache)
+    return func
 
-    def gc(self, seconds=0, minutes=0, hours=0, days=0):
-        lifetime = seconds
-        lifetime += minutes * 60
-        lifetime += hours * 60 * 60
-        lifetime += days * 60 * 60 * 24
-        gc.run(self.config.cache_path, lifetime)
 
-    @property
-    def logger(self):
-        return logger
+def nocache_locate_cache(*args, **kwargs):
+    return nocache_dir_name
 
-    @property
-    def config(self):
-        return self._config
 
-    @config.setter
-    def config(self, config):
-        self._config = config
+def nocache_check_cache(path):
+    return True
+
+
+def nocache_read_cache(path__, *args, **kwargs):
+    raise NoCache()
+
+
+def nocache_write_cache(path__, data__, *args, **kwargs):
+    return data__
+
+
+nocache_dir_name = '.nocache'

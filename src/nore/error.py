@@ -1,6 +1,6 @@
-class NoCache(Exception):
+class BrokenCache(Exception):
     pass
 
 
-class BrokenCache(Exception):
+class NoCache(Exception):
     pass

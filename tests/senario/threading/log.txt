@@ -1,4 +1,0 @@
-DEBUG Found no cache for _threading.script.bar
-INFO Running _threading.script.bar with args=() and kwargs={}
-DEBUG Found no cache for _threading.script.foo
-INFO Running _threading.script.foo with args=() and kwargs={} (from _threading.script.bar)

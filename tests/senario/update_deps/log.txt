@@ -1,9 +1,0 @@
-DEBUG Found no cache for _update_deps.script.plus1_and_mult2
-INFO Running _update_deps.script.plus1_and_mult2 with args=(1,) and kwargs={}
-DEBUG Found no cache for _update_deps.script.plus1
-INFO Running _update_deps.script.plus1 with args=(1,) and kwargs={} (from _update_deps.script.plus1_and_mult2)
-DEBUG _update_deps.script.plus1 is updated (dependency of _update_deps.script.plus1_and_mult2)
-DEBUG Cache for _update_deps.script.plus1_and_mult2 is invalid; propagated
-INFO Running _update_deps.script.plus1_and_mult2 with args=(1,) and kwargs={}
-DEBUG Found no cache for _update_deps.script.plus1
-INFO Running _update_deps.script.plus1 with args=(1,) and kwargs={} (from _update_deps.script.plus1_and_mult2)

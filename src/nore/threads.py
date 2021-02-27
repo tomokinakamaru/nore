@@ -5,7 +5,7 @@ from threading import Lock
 
 class Threads(object):
     def __init__(self):
-        self._parents = {}
+        self._starters = {}
         self._lock = Lock()
 
     def lock(self):
@@ -14,19 +14,19 @@ class Threads(object):
     def unlock(self):
         self._lock.release()
 
-    def get_parent(self, tid):
+    def get_starter(self, tid):
         with self._lock:
-            return self._parents.get(tid)
+            return self._starters.get(tid)
 
-    def set_parent(self, tid):
-        self._parents[tid] = get_ident()
+    def set_starter(self, tid):
+        self._starters[tid] = get_ident()
 
     def gc(self):
         tids = [t.ident for t in enumerate()]
         with self._lock:
-            for t in list(self._parents):
+            for t in list(self._starters):
                 if t not in tids:
-                    del self._parents[t]
+                    del self._starters[t]
 
 
 threads = Threads()

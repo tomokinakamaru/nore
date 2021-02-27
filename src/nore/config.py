@@ -1,11 +1,11 @@
-from os.path import join
+from . import default
 
 
 class Config(object):
     def __init__(self):
-        self._locate_cache = default_locate_cache
-        self._cache_path = default_cache_path
         self._active = True
+        self._cache_path = default.cache_path
+        self._locate_cache = default.locate_cache_head
 
     @property
     def active(self):
@@ -16,14 +16,6 @@ class Config(object):
         self._active = active
 
     @property
-    def locate_cache(self):
-        return self._locate_cache
-
-    def cache_locator(self, f):
-        self._locate_cache = f
-        return f
-
-    @property
     def cache_path(self):
         return self._cache_path
 
@@ -31,11 +23,13 @@ class Config(object):
     def cache_path(self, cache_path):
         self._cache_path = cache_path
 
+    @property
+    def locate_cache(self):
+        return self._locate_cache
 
-def default_locate_cache(name, code_hash):
-    name = name.split('.')
-    code = code_hash[0], code_hash[1], code_hash[2:]
-    return join(*name, *code)
+    def cache_locator(self, f):
+        self._locate_cache = f
+        return f
 
 
-default_cache_path = '.cache'
+config = Config()

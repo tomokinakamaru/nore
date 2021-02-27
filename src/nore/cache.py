@@ -9,22 +9,23 @@ from pickle import dump
 from pickle import load
 from shutil import rmtree
 from time import time
-from . import logger
+from .config import config
 from .error import BrokenCache
 from .functions import functions
+from .logger import vlogger
 from .pathlock import pathlock
 
 
 class Cache(object):
     @classmethod
-    def from_inv(cls, func, args, kwargs, config):
-        return cls(func, args, kwargs, None, None, None, config)
+    def from_inv(cls, func, args, kwargs):
+        return cls(func, args, kwargs, None, None, None)
 
     @classmethod
-    def from_dep(cls, name, code_hash, args_path, config):
-        return cls(None, None, None, name, code_hash, args_path, config)
+    def from_dep(cls, name, code_hash, args_path):
+        return cls(None, None, None, name, code_hash, args_path)
 
-    def __init__(self, func, args, kwargs, name, code_hash, args_path, config):
+    def __init__(self, func, args, kwargs, name, code_hash, args_path):
         self._func = func
         self._args = args
         self._kwargs = kwargs
@@ -32,7 +33,6 @@ class Cache(object):
         self._code_hash = code_hash
         self._args_path = args_path
         self._deps = set()
-        self._config = config
 
     @cached_property
     def name(self):
@@ -51,8 +51,8 @@ class Cache(object):
     @cached_property
     def path(self):
         return join(
-            self._config.cache_path,
-            self._config.locate_cache(self.name, self.code_hash),
+            config.cache_path,
+            config.locate_cache(self.name, self.code_hash),
             self.args_path + cache_dir_ext
         )
 
@@ -90,12 +90,12 @@ class Cache(object):
     def write(self, data, args, kwargs):
         with pathlock.lock(self.path):
             makedirs(self.data_path, exist_ok=True)
-            open(self.tran_path, 'wb').close()
+            self.begin_tran()
             self.touch()
             self.dump_deps()
             self.dump_args(args, kwargs)
             data = self._func.write_cache(self.data_path, data)
-            remove(self.tran_path)
+            self.end_tran()
             return data
 
     def delete(self):
@@ -104,38 +104,41 @@ class Cache(object):
 
     def validate(self, parent=None):
         if not functions.has(self.name):
-            debug(f'{self.name} is deleted', parent)
+            vlogger.detected_deletion(self.name, parent)
             return False
 
         if not functions.has(self.name, self.code_hash):
-            debug(f'{self.name} is updated', parent)
+            vlogger.detected_change(self.name, parent)
             return False
 
-        # TODO: Detail log messages for no-cache situation
         if not isdir(self.data_path):
-            debug(f'Found no cache for {self.name}', parent)
+            vlogger.found_no_cache(self.name, parent)
             return False
 
         func = functions.get(self.name, self.code_hash)
         if not func.check_cache(self.data_path):
-            debug(f'Cache for {self.name} is invalid', parent)
+            vlogger.found_invalid_cache(self.name, parent)
             return False
 
         deps = self.load_deps()
-        if deps is None:
-            debug(f'Deps file of {self.name} is broken', parent)
+        if not isinstance(deps, set):
+            vlogger.found_broken_deps(self.name, parent)
             return False
 
         for name, code_hash, args_path in deps:
-            cache = Cache.from_dep(name, code_hash, args_path, self._config)
+            cache = Cache.from_dep(name, code_hash, args_path)
             if not cache.validate(self):
-                debug(f'Cache for {self.name} is invalid; propagated', parent)
+                vlogger.found_invalid_cache_propagated(self.name, name, parent)
                 return False
 
         self.touch()
-
-        debug(f'Cache for {self.name} is valid', parent)
         return True
+
+    def begin_tran(self):
+        open(self.tran_path, 'wb').close()
+
+    def end_tran(self):
+        remove(self.tran_path)
 
     def touch(self):
         with open(self.time_path, 'w') as f:
@@ -162,20 +165,14 @@ class Cache(object):
             f.write(str(kwargs))
 
 
-def debug(msg, parent):
-    if parent:
-        msg += f' (dependency of {parent.name})'
-    logger.debug(msg)
-
-
 cache_dir_ext = '.cache'
 
 data_dir_name = 'data'
 
 deps_file_name = 'deps'
 
-args_file_name = 'args'
-
 time_file_name = 'time'
 
-tran_file_name = 'trans'
+tran_file_name = 'tran'
+
+args_file_name = 'args'

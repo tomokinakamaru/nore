@@ -1,4 +1,5 @@
 from datetime import datetime
+from logging import getLogger
 from os import walk
 from os import listdir
 from os.path import isdir
@@ -7,10 +8,9 @@ from shutil import rmtree
 from time import time
 from .cache import cache_dir_ext
 from .cache import time_file_name
-from .logger import debug
 
 
-def run(path, lifetime):
+def gc(path, lifetime):
     remove_unused_caches(path, lifetime)
     remove_empty_dirs(path)
 
@@ -61,3 +61,7 @@ def shorten(path):
     if 59 < len(path):
         return path[:27] + ' ... ' + path[-28:]
     return path
+
+
+def debug(msg):
+    getLogger('nore').debug(msg)

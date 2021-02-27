@@ -11,7 +11,7 @@ class Stack(object):
         while True:
             if tid in self._stacks and self._stacks[tid]:
                 return False
-            tid = threads.get_parent(tid)
+            tid = threads.get_starter(tid)
             if tid is None:
                 break
         return True
@@ -21,7 +21,7 @@ class Stack(object):
         while tid:
             if tid in self._stacks and self._stacks[tid]:
                 return self._stacks[tid][-1]
-            tid = threads.get_parent(tid)
+            tid = threads.get_starter(tid)
 
     def push(self, item):
         self._stacks.setdefault(get_ident(), []).append(item)

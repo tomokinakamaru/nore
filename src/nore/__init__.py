@@ -1,4 +1,6 @@
 # flake8: noqa
-from .api import nore
+from .config import config
+from .gc import gc
+from .nore import cache
+from .nore import nocache
 from .thread import Thread
-from .nocache import NoCache
