@@ -1,12 +1,7 @@
-from typing import Any
-from typing import Callable
-from typing import TypeVar
 from .error import NoCache
 from .function import Function
 from .functions import functions
-
-
-Func = TypeVar('Func', bound=Callable[..., Any])
+from .type import Func
 
 
 def cache(f: Func) -> Func:
