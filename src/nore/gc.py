@@ -41,9 +41,6 @@ def read_time(path):
 
 
 def remove_empty_dirs(path):
-    if not isdir(path):
-        return
-
     files = listdir(path)
     if files:
         for f in files:
