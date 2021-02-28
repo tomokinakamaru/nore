@@ -12,7 +12,7 @@ class Config(object):
         return self._active
 
     @active.setter
-    def active(self, active):
+    def active(self, active: bool):
         self._active = active
 
     @property
@@ -20,14 +20,14 @@ class Config(object):
         return self._cache_path
 
     @cache_path.setter
-    def cache_path(self, cache_path):
+    def cache_path(self, cache_path: str):
         self._cache_path = cache_path
 
     @property
     def locate_cache(self):
         return self._locate_cache
 
-    def cache_locator(self, f):
+    def cache_locator(self, f: default.locate_cache_head):
         self._locate_cache = f
         return f
 
