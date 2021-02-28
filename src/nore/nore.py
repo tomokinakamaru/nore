@@ -1,16 +1,15 @@
 from .error import NoCache
 from .function import Function
 from .functions import functions
-from .type import Func
 
 
-def cache(f: Func) -> Func:
+def cache(f):
     func = Function(f)
     functions.put(func)
     return func
 
 
-def nocache(f: Func) -> Func:
+def nocache(f):
     func = cache(f)
     func.cache_locator(nocache_locate_cache)
     func.cache_checker(nocache_check_cache)
