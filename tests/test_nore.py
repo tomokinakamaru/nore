@@ -9,7 +9,7 @@ from pytest import raises
 from shutil import rmtree
 
 
-def test_cache():
+def test_cache1():
     clear_cache()
     clear_funcs()
     with logcapture:
@@ -22,6 +22,29 @@ def test_cache():
             'DEBUG Found no cache for f',
             'INFO Running f with args=(1,) and kwargs={}',
             'INFO Reading cache for f with args=(1,) and kwargs={}'
+        )
+
+
+def test_cache2():
+    clear_cache()
+    clear_funcs()
+    with logcapture:
+        @nore.cache
+        def f(x):
+            return x
+
+        @nore.cache
+        def g(x):
+            return f(x)
+
+        assert g(1) == 1
+        assert g(1) == 1
+        assert read_log() == (
+            'DEBUG Found no cache for g',
+            'INFO Running g with args=(1,) and kwargs={}',
+            'DEBUG Found no cache for f',
+            'INFO Running f with args=(1,) and kwargs={} (from g)',
+            'INFO Reading cache for g with args=(1,) and kwargs={}',
         )
 
 
