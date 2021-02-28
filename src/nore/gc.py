@@ -10,7 +10,7 @@ from .cache import cache_dir_ext
 from .cache import time_file_name
 
 
-def gc(path, lifetime):
+def gc(path, lifetime: int):
     remove_unused_caches(path, lifetime)
     remove_empty_dirs(path)
 
