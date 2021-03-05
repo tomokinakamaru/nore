@@ -1,5 +1,5 @@
+from threading import current_thread
 from threading import get_ident
-from .threads import threads
 
 
 class Stack(object):
@@ -7,21 +7,21 @@ class Stack(object):
         self._stacks = {}
 
     def empty(self):
-        tid = get_ident()
-        while True:
+        thread = current_thread()
+        while thread:
+            tid = thread.ident
             if tid in self._stacks and self._stacks[tid]:
                 return False
-            tid = threads.get_starter(tid)
-            if tid is None:
-                break
+            thread = getattr(thread, '_starter', None)
         return True
 
     def peak(self):
-        tid = get_ident()
-        while tid:
+        thread = current_thread()
+        while thread:
+            tid = thread.ident
             if tid in self._stacks and self._stacks[tid]:
                 return self._stacks[tid][-1]
-            tid = threads.get_starter(tid)
+            thread = getattr(thread, '_starter', None)
 
     def push(self, item):
         self._stacks.setdefault(get_ident(), []).append(item)
@@ -31,7 +31,6 @@ class Stack(object):
         self._stacks[tid].pop()
         if not self._stacks[tid]:
             del self._stacks[tid]
-            threads.gc()
 
 
 stack = Stack()
